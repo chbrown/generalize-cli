@@ -1,0 +1,27 @@
+{
+  "name": "generalize",
+  "description": "Generalize a stream/array of JSON objects into a matching JSON schema",
+  "keywords": [
+    "json",
+    "schema",
+    "generator"
+  ],
+  "version": "0.0.1",
+  "homepage": "https://github.com/chbrown/generalize",
+  "repository": "git://github.com/chbrown/generalize.git",
+  "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "typescript": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "bin": {
+    "generalize": "bin/generalize"
+  }
+}
