@@ -6,7 +6,7 @@
     "schema",
     "generator"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/chbrown/generalize",
   "repository": "git://github.com/chbrown/generalize.git",
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
