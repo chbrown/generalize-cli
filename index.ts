@@ -1,9 +1,8 @@
-/// <reference path="./type_declarations/index.d.ts" />
-import * as stream from 'stream';
+import {Stream, Transform, TransformOptions} from 'stream';
 import * as yargs from 'yargs';
 import * as types from './types';
 
-interface SplitterOptions extends stream.TransformOptions {
+interface SplitterOptions extends TransformOptions {
   /** split_string, if provided, should be exactly one character long */
   split_string?: string;
   /** split_byte, if provided, will override split_string (they are mutually exclusive options) */
@@ -35,7 +34,7 @@ In other words, the Splitter should have the following values:
     }
 
 */
-class Splitter extends stream.Transform {
+class Splitter extends Transform {
   protected _buffer = new Buffer(0);
   protected _split_byte: number = null; // null indicates smart handling of \r and \n characters
   constructor(opts: SplitterOptions = {}) {
@@ -107,8 +106,8 @@ class Splitter extends stream.Transform {
   }
 }
 
-class JSONParser extends stream.Transform {
-  constructor(opts: stream.TransformOptions = {objectMode: true}) {
+class JSONParser extends Transform {
+  constructor(opts: TransformOptions = {objectMode: true}) {
     super(opts);
   }
   _transform(chunk: string | Buffer, encoding: string, callback: (error?: Error, outputChunk?: any) => void) {
@@ -200,7 +199,7 @@ export function generalizeArray(values: any[]): types.Schema[] {
 The given readable stream should emit 'data' events that are native Javascript
 values/objects.
 */
-export function generalizeStream(readable_stream: stream.Stream, callback: (error: Error, schemas?: types.Schema[]) => void) {
+export function generalizeStream(readable_stream: Stream, callback: (error: Error, schemas?: types.Schema[]) => void) {
   var accumulator_schemas: types.Schema[] = [];
   readable_stream
   .on('data', (value: any) => {

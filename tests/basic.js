@@ -1,9 +1,8 @@
-/// <reference path="../type_declarations/index.d.ts" />
-import * as assert from 'assert';
-import * as types from '../types';
-import * as generalize from '../index';
+import assert from 'assert';
+import {describe, it} from 'mocha';
+import {generalizeArray} from '../';
 
-function assertEqualSchemas(actual: types.Schema[], expected: types.Schema[]) {
+function assertEqualSchemas(actual, expected) {
   // FIXME: this should test equality as sets
   assert.deepEqual(actual, expected);
 }
@@ -11,7 +10,7 @@ function assertEqualSchemas(actual: types.Schema[], expected: types.Schema[]) {
 describe('basic object generalization', () => {
 
   it('should collapse number types', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       100,
       -90,
       45,
@@ -23,7 +22,7 @@ describe('basic object generalization', () => {
   });
 
   it('should collapse string types', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       'I could',
       'not',
       'care',
@@ -35,7 +34,7 @@ describe('basic object generalization', () => {
   });
 
   it('should collapse identical object types', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       {
         name: 'Curious George',
         age: 5,
@@ -59,7 +58,7 @@ describe('basic object generalization', () => {
   });
 
   it('should build array from distinct object types', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       'incredible',
       800
     ]);
@@ -71,7 +70,7 @@ describe('basic object generalization', () => {
   });
 
   it('should build array from objects with distinct property sets', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       {
         name: 'Curious George',
         age: 5,
@@ -100,7 +99,7 @@ describe('basic object generalization', () => {
   });
 
   it('should build array schema from objects with identical object types but different lengths', () => {
-    var actual = generalize.generalizeArray([
+    var actual = generalizeArray([
       [
         { name: 'Curious George', email: 'cgeorge@example.org'}
       ],

@@ -1,11 +1,9 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/// <reference path="./type_declarations/index.d.ts" />
-var stream = require('stream');
+var stream_1 = require('stream');
 var yargs = require('yargs');
 var types = require('./types');
 /**
@@ -104,7 +102,7 @@ var Splitter = (function (_super) {
         callback();
     };
     return Splitter;
-})(stream.Transform);
+})(stream_1.Transform);
 var JSONParser = (function (_super) {
     __extends(JSONParser, _super);
     function JSONParser(opts) {
@@ -117,7 +115,7 @@ var JSONParser = (function (_super) {
         callback(null, JSON.parse(chunk));
     };
     return JSONParser;
-})(stream.Transform);
+})(stream_1.Transform);
 /**
 Returns one of the seven primitive JSON schema types, or 'undefined':
   array, boolean, integer, number, null, object, string, undefined

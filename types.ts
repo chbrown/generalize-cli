@@ -12,6 +12,7 @@ export interface Schema {
   number is a superset of integer.
   */
   type: string;
+  [index: string]: any;
 }
 
 export interface ObjectSchema extends Schema {
