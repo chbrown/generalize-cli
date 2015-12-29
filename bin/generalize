@@ -4,21 +4,22 @@ var minimist = require('minimist');
 var generalize = require('generalize');
 
 var argv = minimist(process.argv, {
-  alias: { h: 'help', v: 'version' },
-  boolean: ['help', 'version'],
+  alias: { h: 'help', p: 'pretty', v: 'version' },
+  boolean: ['help', 'pretty', 'version'],
 });
 
-if (argv['help']) {
+if (argv.help) {
   console.error([
     'Usage: generalize < objects.json',
     '',
     '  -h --help       print this help message',
     '  -v --version    print version',
+    '  -p --pretty     pretty-print JSON output',
   ].join('\n'));
   process.exit(0);
 }
 
-if (argv['version']) {
+if (argv.version) {
   console.log('generalize: %s', require('generalize/package.json').version);
   console.log('generalize-cli: %s', require('../package.json').version);
   process.exit(0);
@@ -38,6 +39,7 @@ process.stdin
   process.exit(1);
 })
 .on('end', function() {
-  console.log(JSON.stringify(accumulator));
+  var space = argv.pretty ? 2 : 0;
+  console.log(JSON.stringify(accumulator, null, space));
   process.exit(0);
 });
