@@ -1,8 +1,10 @@
 # generalize
 
+[![npm version](https://badge.fury.io/js/generalize-cli.svg)](https://www.npmjs.com/package/generalize-cli)
+
 **Install:**
 
-    npm install -g generalize
+    npm install -g generalize-cli
 
 ## Example
 

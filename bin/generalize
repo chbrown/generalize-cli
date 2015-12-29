@@ -1,2 +1,43 @@
 #!/usr/bin/env node
-require('../').main();
+var json = require('streaming/json');
+var minimist = require('minimist');
+var generalize = require('generalize');
+
+var argv = minimist(process.argv, {
+  alias: { h: 'help', v: 'version' },
+  boolean: ['help', 'version'],
+});
+
+if (argv['help']) {
+  console.error([
+    'Usage: generalize < objects.json',
+    '',
+    '  -h --help       print this help message',
+    '  -v --version    print version',
+  ].join('\n'));
+  process.exit(0);
+}
+
+if (argv['version']) {
+  console.log('generalize: %s', require('generalize/package.json').version);
+  console.log('generalize-cli: %s', require('../package.json').version);
+  process.exit(0);
+}
+
+// split input on newlines and parse each one as JSON
+var accumulator = [];
+
+process.stdin
+.pipe(new json.Parser())
+// the Parser() stream will emit 'data' events that are native Javascript objects.
+.on('data', function(value) {
+  return accumulator = generalize.union(accumulator, value);
+})
+.on('error', function(error) {
+  console.error(error.toString());
+  process.exit(1);
+})
+.on('end', function() {
+  console.log(JSON.stringify(accumulator));
+  process.exit(0);
+});
