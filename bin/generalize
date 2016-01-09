@@ -26,13 +26,13 @@ if (argv.version) {
 }
 
 // split input on newlines and parse each one as JSON
-var accumulator = [];
+var schema = {};
 
 process.stdin
 .pipe(new json.Parser())
 // the Parser() stream will emit 'data' events that are native Javascript objects.
 .on('data', function(value) {
-  return accumulator = generalize.union(accumulator, value);
+  schema = generalize.union(schema, value);
 })
 .on('error', function(error) {
   console.error(error.toString());
@@ -40,6 +40,6 @@ process.stdin
 })
 .on('end', function() {
   var space = argv.pretty ? 2 : 0;
-  console.log(JSON.stringify(accumulator, null, space));
+  console.log(JSON.stringify(schema, null, space));
   process.exit(0);
 });
